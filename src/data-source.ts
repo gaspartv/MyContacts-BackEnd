@@ -4,10 +4,10 @@ import path from "path";
 import { DataSource, DataSourceOptions } from "typeorm";
 
 const dataSourceConfig = (): DataSourceOptions => {
-  const entitiesPath: string = path.join(__dirname, "./entities/*.{ts,js}");
+  const entitiesPath: string = path.join(__dirname, "./entities/*.{js,ts}");
   const migrationPath: string = path.join(
     __dirname,
-    "./database/migrations/*.{ts,js}"
+    "./database/migrations/*.{js,ts}"
   );
 
   const nodeEnv: string = process.env.NODE_ENV!;
@@ -18,7 +18,6 @@ const dataSourceConfig = (): DataSourceOptions => {
       database: ":memory:",
       entities: [entitiesPath],
       migrations: [migrationPath],
-      synchronize: true,
     };
   }
 

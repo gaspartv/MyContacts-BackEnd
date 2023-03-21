@@ -36,12 +36,6 @@ class Client {
   @OneToMany(() => Contacts, (contacts) => contacts.client_)
   @JoinColumn()
   contacts_: Contacts[];
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  hashPassword() {
-    this.password = hashSync(this.password, 10);
-  }
 }
 
 export default Client;
