@@ -18,6 +18,7 @@ const dataSourceConfig = (): DataSourceOptions => {
       database: ":memory:",
       entities: [entitiesPath],
       migrations: [migrationPath],
+      synchronize: true,
     };
   }
 
