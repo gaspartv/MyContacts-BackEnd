@@ -33,7 +33,9 @@ class Client {
   @CreateDateColumn()
   registered_at: Date;
 
-  @OneToMany(() => Contacts, (contacts) => contacts.client_)
+  @OneToMany(() => Contacts, (contacts) => contacts.client_, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn()
   contacts_: Contacts[];
 }

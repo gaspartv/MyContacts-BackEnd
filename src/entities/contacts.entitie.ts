@@ -17,16 +17,18 @@ class Contact {
   @Column({ length: 60 })
   name: string;
 
-  @Column({ length: 60, unique: true })
+  @Column({ length: 60 })
   email: string;
 
-  @Column({ length: 60, unique: true })
+  @Column({ length: 60 })
   tel: string;
 
   @CreateDateColumn()
   registered_at: Date;
 
-  @ManyToOne(() => Clients, (client) => client.contacts_)
+  @ManyToOne(() => Clients, (client) => client.contacts_, {
+    onDelete: "CASCADE",
+  })
   client_: Clients | null;
 }
 
