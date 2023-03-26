@@ -1,9 +1,9 @@
 import { iClientRES } from "./client.interfaces";
 
 export interface iContactREQ {
-  name: string;
-  email: string;
-  tel: string;
+  name?: string;
+  email?: string;
+  tel?: string;
 }
 
 export interface iContactRES {
