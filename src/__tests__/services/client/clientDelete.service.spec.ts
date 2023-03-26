@@ -25,7 +25,7 @@ describe("/client", () => {
     await connection.destroy();
   });
 
-  test("GET /client - Show current client.", async () => {
+  test("DELETE /client - Can successfully delete the client.", async () => {
     const client = await request(app).post(baseUrl).send(mockClientRequest);
 
     expect(client.status).toBe(201);
@@ -38,21 +38,18 @@ describe("/client", () => {
     expect(clientLogin.status).toBe(200);
     expect(clientLogin.body).toHaveProperty("token");
 
-    const res = await request(app)
-      .get("/client")
-      .set("Authorization", `Bearer ${clientLogin.body.token}`)
+    const clientEdit = await request(app)
+      .delete(baseUrl)
+      .set("Authorization", `Bearer ${clientLogin.body.token}`);
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("id");
-    expect(res.body).toHaveProperty("name");
-    expect(res.body).toHaveProperty("email");
-    expect(res.body).toHaveProperty("tel");
-    expect(res.body).toHaveProperty("registered_at");
-    expect(res.body).not.toHaveProperty("password");
-    expect(typeof res.body.id).toBe("string");
+    expect(clientEdit.status).toBe(200);
   });
 
-  test("GET /client - Cannot view client without token.", async () => {
+  test("DELETE /client - Cannot delete client without token.", async () => {
+    const client = await request(app).post(baseUrl).send(mockClientRequest);
+
+    expect(client.status).toBe(201);
+
     const clientLogin = await request(app).post("/login").send({
       email: mockClientRequest.email,
       password: mockClientRequest.password,
@@ -61,7 +58,7 @@ describe("/client", () => {
     expect(clientLogin.status).toBe(200);
     expect(clientLogin.body).toHaveProperty("token");
 
-    const res = await request(app).get("/client");
+    const res = await request(app).delete("/client");
 
     expect(res.status).toBe(401);
     expect(res.body.message).toContain("Invalid token.");

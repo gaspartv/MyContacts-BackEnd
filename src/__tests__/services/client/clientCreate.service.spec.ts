@@ -1,14 +1,12 @@
 import request from "supertest";
-import { DataSource, Repository } from "typeorm";
+import { DataSource } from "typeorm";
 import app from "../../../app";
 import AppDataSource from "../../../data-source";
-import Client from "../../../entities/clients.entitie";
 import { mockClientRequest } from "../../mocks/client.mock";
 
 describe("/client", () => {
   let baseUrl: string = "/client";
   let connection: DataSource;
-  let clientRepo: Repository<Client>;
 
   beforeAll(async () => {
     await AppDataSource.initialize()

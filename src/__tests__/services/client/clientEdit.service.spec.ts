@@ -25,7 +25,7 @@ describe("/client", () => {
     await connection.destroy();
   });
 
-  test("GET /client - Show current client.", async () => {
+  test("PATCH /client - Can successfully edit the client.", async () => {
     const client = await request(app).post(baseUrl).send(mockClientRequest);
 
     expect(client.status).toBe(201);
@@ -38,21 +38,24 @@ describe("/client", () => {
     expect(clientLogin.status).toBe(200);
     expect(clientLogin.body).toHaveProperty("token");
 
-    const res = await request(app)
-      .get("/client")
+    const clientEdit = await request(app)
+      .patch(baseUrl)
       .set("Authorization", `Bearer ${clientLogin.body.token}`)
+      .send({
+        name: "Test Edit",
+      });
 
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("id");
-    expect(res.body).toHaveProperty("name");
-    expect(res.body).toHaveProperty("email");
-    expect(res.body).toHaveProperty("tel");
-    expect(res.body).toHaveProperty("registered_at");
-    expect(res.body).not.toHaveProperty("password");
-    expect(typeof res.body.id).toBe("string");
+    expect(clientEdit.status).toBe(200);
+    expect(clientEdit.body).toHaveProperty("id");
+    expect(clientEdit.body).toHaveProperty("name");
+    expect(clientEdit.body).toHaveProperty("email");
+    expect(clientEdit.body).toHaveProperty("tel");
+    expect(clientEdit.body).toHaveProperty("registered_at");
+    expect(clientEdit.body).not.toHaveProperty("password");
+    expect(typeof clientEdit.body.id).toBe("string");
   });
 
-  test("GET /client - Cannot view client without token.", async () => {
+  test("PATCH /client - Cannot edit client without token.", async () => {
     const clientLogin = await request(app).post("/login").send({
       email: mockClientRequest.email,
       password: mockClientRequest.password,
@@ -61,7 +64,9 @@ describe("/client", () => {
     expect(clientLogin.status).toBe(200);
     expect(clientLogin.body).toHaveProperty("token");
 
-    const res = await request(app).get("/client");
+    const res = await request(app).patch("/client").send({
+      name: "Test Edit",
+    });
 
     expect(res.status).toBe(401);
     expect(res.body.message).toContain("Invalid token.");
