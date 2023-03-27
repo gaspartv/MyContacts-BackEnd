@@ -11,7 +11,9 @@ Vamos começar pelo Back-end:
 
 1º acesse o link acima e clone o repositório.
 
-2º abra o terminal na pasta que você clonou e execute os seguintes comandos:
+2º tem um arquivo .env.exemplo copie e renomeie a copia para .env e passe suas configurações, banco de dados utilizado PostgreSQL.
+
+3º abra o terminal na pasta que você clonou e execute os seguintes comandos:
 
     yarn install
     
