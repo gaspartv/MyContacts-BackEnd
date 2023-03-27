@@ -17,6 +17,14 @@ Vamos começar pelo Back-end:
 
     yarn install
     
+    
+4º Para executar as migrations digite o comando:
+
+    yarn typeorm migration:run -d ./src/data-source.ts
+    
+    
+Pronto seu servidor já pode ser executado com o comando:
+
     yarn dev
 
 
