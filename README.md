@@ -23,12 +23,6 @@ Caso queira da uma olhada nos testes e só digitar o comando:
     yarn test
 
 
-Se você quiser também pode fazer o build em ambiente local para testar:
-
-    yarn build
-    
-    yarn start
-
 
 Pronto o servidor back-end já está rodando na rota http://localhost:3001 você pode testa-lo utilizando o insomnia, na raiz do projeto tem um arquivo chamado insomnia.json, você pode utilizar ele no seu insomnia para testar as rotas.
 
@@ -43,12 +37,6 @@ Vamos para o Front-end:
     
     yarn dev
 
-
-Se você quiser também pode fazer o build em ambiente local para testar:
-
-    yarn build
-    
-    yarn start
 
 
 Pronto o servidor front-end já está rodando, você pode testa-lo acessando http://localhost:3000
